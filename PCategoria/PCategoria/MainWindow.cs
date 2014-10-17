@@ -1,22 +1,23 @@
 using Gtk;
-using MySql.Data.MySqlClient;
+using System.Data;
 using System;
+using PCategoria;
+using SerpisAd;
 
 public partial class MainWindow: Gtk.Window
 {	
-	private MySqlConnection mySqlConnection;
-	private MySqlDataReader mySqlDataReader;
+	private IDbConnection dbConnection;
 	private ListStore listStore;
 
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
 
-		mySqlConnection = new MySqlConnection (
-			"DataSource=localhost;Database=dbprueba;User ID=root;Password=sistemas"
-		);
+		deleteAction.Sensitive = false;
+		editAction.Sensitive = false;
 
-		mySqlConnection.Open ();
+		dbConnection = App.Instance.DbConnection;
+
 
 		treeView.AppendColumn ("id", new CellRendererText (), "text", 0);
 		treeView.AppendColumn ("nombre", new CellRendererText (), "text", 1);
@@ -29,35 +30,39 @@ public partial class MainWindow: Gtk.Window
 
 		//treeView.Selection.Changed += selectionChanged;
 		// metodo anonimo, acceso a variables que sten en alcance en local
-		treeView.Selection.Changed += delegate 
+		treeView.Selection.Changed += delegate //Podemos añadir varios metodos para que sean llamados con +=
 		{
 			deleteAction.Sensitive = treeView.Selection.CountSelectedRows() > 0;
+			editAction.Sensitive = treeView.Selection.CountSelectedRows() > 0;
 		};
 	}
 
 	private void selectionChanged (object sender, EventArgs e)
 	{
 		Console.WriteLine ("selectionChanged");
+		bool hasSelected = treeView.Selection.CountSelectedRows () > 0;
+		deleteAction.Sensitive = hasSelected;
+		editAction.Sensitive = hasSelected;
 	}
 
 	private void fillListStore() 
 	{
-		MySqlCommand mySqlCommand = mySqlConnection.CreateCommand ();
-		mySqlCommand.CommandText = "select * from categoria";
+		IDbCommand dbCommand = dbConnection.CreateCommand ();
+		dbCommand.CommandText = "select * from categoria";
 
-		mySqlDataReader = mySqlCommand.ExecuteReader ();
-		while (mySqlDataReader.Read()) 
+		IDataReader dataReader = dbCommand.ExecuteReader ();
+		while (dataReader.Read()) 
 		{
-			object id = mySqlDataReader ["id"];
-			object nombre = mySqlDataReader ["nombre"];
+			object id = dataReader ["id"];
+			object nombre = dataReader ["nombre"];
 			listStore.AppendValues (id, nombre);
 		}
-		mySqlDataReader.Close ();
+		dataReader.Close ();
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
-		mySqlConnection.Close ();
+		dbConnection.Close ();
 		Application.Quit ();
 		a.RetVal = true;
 	}
@@ -69,10 +74,10 @@ public partial class MainWindow: Gtk.Window
 			"Nuevo " + DateTime.Now
 		);
 		Console.WriteLine ("insertSql={0}", insertSql);
-		MySqlCommand mySqlCommand = mySqlConnection.CreateCommand ();
-		mySqlCommand.CommandText = insertSql;
+		IDbCommand dbCommand = dbConnection.CreateCommand ();
+		dbCommand.CommandText = insertSql;
 
-		mySqlCommand.ExecuteNonQuery ();
+		dbCommand.ExecuteNonQuery ();
 	}
 
 	protected void OnRefreshActionActivated (object sender, EventArgs e)
@@ -92,10 +97,10 @@ public partial class MainWindow: Gtk.Window
 
 		string deleteSql = string.Format("delete from categoria where id={0}", id);
 		Console.WriteLine ("deleteSql={0}", deleteSql);
-		MySqlCommand mySqlCommand = mySqlConnection.CreateCommand ();
-		mySqlCommand.CommandText = deleteSql;
+		IDbCommand dbCommand = dbConnection.CreateCommand ();
+		dbCommand.CommandText = deleteSql;
 
-		mySqlCommand.ExecuteNonQuery ();
+		dbCommand.ExecuteNonQuery ();
 
 	}
 
@@ -107,16 +112,26 @@ public partial class MainWindow: Gtk.Window
 	public bool Confirm(string text)
 	{
 		MessageDialog messageDialog = new MessageDialog (
-			this, // para la ventana en la que nos encontramos
+			this, //Para la ventana en la que nos encontramos
 			DialogFlags.Modal, 
 			MessageType.Question, 
 			ButtonsType.YesNo, 
 			text
 			);
 
-		ResponseType response = (ResponseType)messageDialog.Run ();
+		messageDialog.Title = "Confirmación eliminación";
+		ResponseType response = (ResponseType)messageDialog.Run ();//Hacemos un cast ya que run devuelve un int
 		messageDialog.Destroy ();
 
 		return response == ResponseType.Yes;
 	}
+	protected void OnEditActionActivated (object sender, EventArgs e)
+	{
+		TreeIter treeIter;
+		treeView.Selection.GetSelected (out treeIter);
+		object id = listStore.GetValue (treeIter, 0);
+		CategoriaView categoriaView = new CategoriaView (id);
+
+	}
+
 }
