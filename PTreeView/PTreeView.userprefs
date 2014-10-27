@@ -1,0 +1,28 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../PArticulo/PArticulo/MainWindow.cs">
+    <Files>
+      <File FileName="../PArticulo/PArticulo/MainWindow.cs" Line="7" Column="34" />
+      <File FileName="../PArticulo/PArticulo/Program.cs" Line="1" Column="1" />
+      <File FileName="../PCategoria/PCategoria/MainWindow.cs" Line="1" Column="1" />
+      <File FileName="../PCategoria/PCategoria/Program.cs" Line="1" Column="1" />
+      <File FileName="../PCategoria/PCategoria/CategoriaView.cs" Line="1" Column="1" />
+      <File FileName="../PNotebook/PNotebook/MainWindow.cs" Line="1" Column="1" />
+      <File FileName="PTreeView/MainWindow.cs" Line="31" Column="48" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="PArticulo" expanded="True">
+            <Node name="References" expanded="True" />
+            <Node name="MainWindow.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
