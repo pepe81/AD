@@ -60,13 +60,6 @@ public partial class MainWindow: Gtk.Window
 		dataReader.Close ();
 	}
 
-	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
-	{
-		dbConnection.Close ();
-		Application.Quit ();
-		a.RetVal = true;
-	}
-
 	protected void OnAddActionActivated (object sender, EventArgs e)
 	{
 		string insertSql = string.Format(
@@ -84,6 +77,12 @@ public partial class MainWindow: Gtk.Window
 	{
 		listStore.Clear ();
 		fillListStore ();
+	}
+	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
+	{
+		dbConnection.Close ();
+		Application.Quit ();
+		a.RetVal = true;
 	}
 	protected void OnDeleteActionActivated (object sender, EventArgs e)
 	{

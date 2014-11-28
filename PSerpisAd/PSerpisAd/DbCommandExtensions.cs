@@ -3,10 +3,9 @@ using System.Data;
 
 namespace SerpisAd
 {
-	public static class DbCommandExtensions// static para que no se puedan crear objetos de la clase
+	public static class DbCommandExtensions
 	{
-		public static void AddParameter (this IDbCommand dbCommand, string name, object value)
-		{
+		public static void AddParameter(this IDbCommand dbCommand, string name, object value) {
 			IDbDataParameter dbDataParameter = dbCommand.CreateParameter ();
 			dbDataParameter.ParameterName = name;
 			dbDataParameter.Value = value;

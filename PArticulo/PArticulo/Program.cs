@@ -1,6 +1,7 @@
 using Gtk;
+using System;
 using MySql.Data.MySqlClient;
-using System.Data;
+
 using SerpisAd;
 
 namespace PArticulo

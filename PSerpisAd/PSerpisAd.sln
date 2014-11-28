@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSerpisAd", "PSerpisAd\PSerpisAd.csproj", "{D6B30966-47CD-48CB-9324-9A5F55F839DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSerpisAd", "PSerpisAd\PSerpisAd.csproj", "{1C7AD7E2-320F-4238-B994-C3E770307B61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D6B30966-47CD-48CB-9324-9A5F55F839DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6B30966-47CD-48CB-9324-9A5F55F839DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6B30966-47CD-48CB-9324-9A5F55F839DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6B30966-47CD-48CB-9324-9A5F55F839DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7AD7E2-320F-4238-B994-C3E770307B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7AD7E2-320F-4238-B994-C3E770307B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7AD7E2-320F-4238-B994-C3E770307B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7AD7E2-320F-4238-B994-C3E770307B61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = PSerpisAd\PSerpisAd.csproj
